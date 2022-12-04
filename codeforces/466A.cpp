@@ -19,3 +19,5 @@ int main()
     }
     cout << min(ans, b*x) << '\n';
 }
+
+/* AC */
