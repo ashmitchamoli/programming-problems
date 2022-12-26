@@ -17,6 +17,6 @@ int main()
         sort(a, a+n);
         int lim = ceil(sqrt(a[n-1]));
 
-
+        
     }
 }
