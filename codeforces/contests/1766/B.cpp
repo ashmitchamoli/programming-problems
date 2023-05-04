@@ -15,6 +15,5 @@ int main()
             cout << "NO\n";
             continue;
         }
-        
     }
 }

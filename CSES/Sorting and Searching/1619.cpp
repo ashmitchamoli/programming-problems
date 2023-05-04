@@ -9,14 +9,18 @@ int main()
     cout.tie(NULL);
 
     int n; cin >> n;
-    vector<pair<int, int>> cust(n);
-    for(int i = 0; i < n; i++)
-        cin >> cust[i].first >> cust[i].second;
-    sort(cust.begin(), cust.end());
-
-    int ans = 1;
-    int curr_cust = 1;
-    for(int i = 1; i < n; i++) {
-        
+    vector<pair<long long, int>> a(2*n);
+    for(int i = 0; i < 2*n; i+=2) {
+        cin >> a[i].first >> a[i+1].first;
+        a[i].second = 1;
+        a[i+1].second = -1;
     }
+    sort(a.begin(), a.end());
+    int ans = 1;
+    int temp = 0;
+    for(int i = 0; i < 2*n; i++) {
+        temp += a[i].second;
+        if(temp > ans) ans = temp;
+    }
+    cout << ans;
 }
