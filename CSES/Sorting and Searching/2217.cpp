@@ -22,15 +22,7 @@ int main() {
         int temp = ans;
         x = a[x];
         y = a[y];
-        if(y == x+1 || x == y+1) {
-            temp+=(y-x);
-            cout << temp << "\n";
-            continue;
-        }
-        for(int i: vector<int>{-1, 1}) {
-            if(x+i > 0 && x+i <= n && ind[x+i] > ind[x] && ind[x+i] < ind[y]) temp += i;
-            if(y+i > 0 && y+i <= n && ind[y+i] > ind[x] && ind[y+i] < ind[y]) temp -= i;
-        }
+        
         cout << temp << "\n";
     }
 
