@@ -10,11 +10,20 @@ int main() {
     for(int i = 0; i < n; i++) cin >> coins[i];
     sort(coins.begin(), coins.end());
 
-    // dp(x, i) = number of ways to make x using coins[i...n-1]
-    vector<vector<int>> dp(x+1, vector<int>(n, -1));
+    vector<vector<int>> dp(x+1, vector<int>(n, 0));
     for(int i = 0; i < n; i++) dp[0][i] = 1;
-    for(int i = 0; i <= x; i++) dp[i][n-1] = (i % coins[n-1] == 0);
-    
-    int mod = 1e9 + 7;
-    
+    for(int i = 0; i <= x; i++) dp[i][0] = (i%coins[0] == 0);
+
+    for(int i = 1; i <= x; i++) {
+        for(int j = 1; j < n; j++) {
+            dp[i][j] += dp[i][j-1];
+            int k = 1;
+            while(k*coins[j] <= i) {
+                dp[i][j] += dp[i-k*coins[j]][j-1];
+                k++;
+            }
+        }
+    }
+
+    cout << dp[x][n-1] << "\n";
 }
