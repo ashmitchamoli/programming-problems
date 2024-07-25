@@ -10,53 +10,39 @@ using namespace std;
 // @lc code=start
 class Solution {
 public:
-    bool isNeighbour(string word, string neighbour) {
-        if (word.size() != neighbour.size()) {
-            return false;
-        }
-
-        int count = 0;
-        for (int i = 0; i < word.size(); i++) {
-            count += (word[i] != neighbour[i]);
-            if (count > 1) {
-                return false;
-            }
-        }
-        if (count == 1) {
-            return true;
-        }
-        return false;
-    }
-
     int ladderLength(string beginWord, string endWord, vector<string>& wordList) {        
         queue<string> q({beginWord, "|"});
-        set<string> words(wordList.begin(), wordList.end());
-        // words.erase(beginWord);
-    
+		unordered_map<string, bool> isVisited;
+
         int ans = 2;
 
         while(! q.empty()) {
             string currWord = q.front();
-            // cout << currWord << " ";
             q.pop();
 
-            vector<string> temp;
-            for(auto word : words) {
-                if (isNeighbour(word, currWord)) {
-                    if (word == endWord) {
-                        return ans;
-                    }
+			for (int i = 0; i < currWord.size(); i++) {
+				char currChar = currWord[i];
 
-                    q.push(word);
+				for (char c = 'a'; c <= 'z'; c++) {
+					currWord[i] = c;
 
-                    // words.erase(word);
-                    temp.push_back(word);
-                }
-            }
-            for (auto word : temp) {
-                words.erase(word);
-            }
+					for (auto word : wordList) {
+						if (isVisited[word]) {
+							continue;
+						}
 
+						if (currWord == word) {
+                            if (word == endWord) {
+                                return ans;
+                            }
+                            
+                            q.push(word);
+                            isVisited[word] = true;
+						}
+					}
+				}
+                currWord[i] = currChar;
+			}
             if (q.front() == "|") {
                 // cout << " |\n";
                 q.pop();

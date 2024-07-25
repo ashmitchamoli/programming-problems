@@ -48,5 +48,5 @@ int main() {
     }
     auto isVisited = bfsGrid(start, grid);
     if (isVisited[end.first][end.second]) cout << "YES\n";
-    else cout << "NO\n";
+    else cout << "NO\n";d
 }
